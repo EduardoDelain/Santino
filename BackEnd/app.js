@@ -2,7 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
-//const jwt = require("jsonwebtoken");
+var cors = require('cors')
 
 const app = express();
 
@@ -12,9 +12,15 @@ const User = require("./models/User");
 // Config JSON response
 app.use(express.json());
 
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  app.use(cors());
+  next();
+});
+
 // Open Route
 app.get("/", (req, res) => {
-  res.status(200).json({ msg: "Bem vindo a API!" });
+  res.status(200).json({ login: "Cuidado que o Santini é violento!" });
 });
 
 app.post("/registrar", async (req, res) => {
